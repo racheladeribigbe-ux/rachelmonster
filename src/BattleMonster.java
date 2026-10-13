@@ -33,17 +33,39 @@ public class BattleMonster {
                 // check if there's a puppy
                 if (puppy != null){
                     // check if the puppy attacks 
+
+                    // 1 in 100 chance
+
+                    double r = Math.random();
+
+                    if (r < .01) layWaste;
+
                     layWaste();
                 }
 
 
                 // if no dog and no dog attack, roll for damage
 
+                int damage = (int)(Math.random()* maxdmg);
+                findWeakest().takeDmg(damage);
+
+
 
                 // apply damage to first monster
             }
             // heal
             
+            else if (input.equals("heal")){
+                // (diff+1)+ min  1- -100 
+                int random = (int)(Math.random()*91)+10
+                playerHealth += random;
+                System.out.println("You heal for "+ random + " points.(Current health:" playerHealth "+ ")" );
+            }
+
+
+
+
+
             // MONSTERS TURN
             
             
