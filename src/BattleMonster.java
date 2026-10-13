@@ -31,9 +31,9 @@ public class BattleMonster {
             // attack
             else if(input.equals("attack")){
                 // check if there's a puppy
-                if (puppy != null)
+                if (puppy != null){
                     // check if the puppy attacks 
-
+                    layWaste();
                 }
 
 
@@ -79,10 +79,8 @@ public class BattleMonster {
         // loop thorough all the monsters and the puppy destroys them
 
         for(Monster m : monsters){
-            m.takeDmg(m.health());
+            if (m != null) m.takeDmg(m.health());
         }
     }
-
-
 
 }
