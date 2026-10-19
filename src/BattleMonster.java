@@ -32,54 +32,60 @@ public class BattleMonster {
             else if(input.equals("attack")){
                 // check if there's a puppy
                 if (puppy != null){
-                    // check if the puppy attacks 
-
                     // 1 in 100 chance
-
-                    double r = Math.random();
-
-                    if (r < .01) layWaste;
-
-                    layWaste();
+                    if (Math.random() < .01) layWaste();
                 }
 
-
                 // if no dog and no dog attack, roll for damage
-
-                int damage = (int)(Math.random()* maxdmg);
-                findWeakest().takeDmg(damage);
-
-
-
+                int damage = (int)(Math.random()* maxDmg);
+                Monster target  = findWeakest();
+                target.takeDmg(damage);
+                // is the monster dead?
+                if(target.health()<= 0) target = null;
                 // apply damage to first monster
             }
             // heal
             
             else if (input.equals("heal")){
                 // (diff+1)+ min  1- -100 
-                int random = (int)(Math.random()*91)+10
+                int random = (int)(Math.random()*91)+10;
                 playerHealth += random;
-                System.out.println("You heal for "+ random + " points.(Current health:" playerHealth "+ ")" );
+                System.out.println("You heal for " + random + " points.(Current health:" + playerHealth + ")");
             }
-
-
-
-
 
             // MONSTERS TURN
             
+            for(Monster m : monsters){
+                if(m == null){
+                    // chance that a monster gets created
+                    int randomMonster= (int)(Math.random()*10);
+                    if(randomMonster>7){
+                         m = new Monster();
+                         System.out.println("New Monster Joined");
+                    } 
+                    
+                }else{
+                    //monster attack human
+                    int dmgFromMonster = (int)(Math.random() * m.maxDmg() + 1);
+                    playerHealth -= dmgFromMonster;
+                    System.out.println("\n MONSTER HITS FOR " + dmgFromMonster);
+                    System.out.println(" CURRENT HEALTH: "  + playerHealth + "\n");
+                }
+            }
             
         } while(!input.equals("quit"));
     }
 
     /**
      * Checks for any monsters
+     * 
      * @return true if no monsters are in the monsters array
      */
     public static boolean noMonsters() {
         // loop and check for monsters
-        for(int i = 0; i < monsters.length; i++){
-            if(monsters[i] != null) return false;
+        for (int i = 0; i < monsters.length; i++) {
+            if (monsters[i] != null)
+                return false;
         }
         return true;
     }
@@ -89,20 +95,36 @@ public class BattleMonster {
      */
     public static void makeMonster() {
         // loop and find the first free spot and set it equal to our "something"
-        for(int i = 0; i < monsters.length; i++) 
-            if(monsters[i] == null){
+        for (int i = 0; i < monsters.length; i++)
+            if (monsters[i] == null) {
                 monsters[i] = new Monster();
                 return;
-            } 
-                
+            }
+
     }
 
     public static void layWaste() {
         // loop thorough all the monsters and the puppy destroys them
 
-        for(Monster m : monsters){
-            if (m != null) m.takeDmg(m.health());
+        for (Monster m : monsters) {
+            if (m != null)
+                m.takeDmg(m.health());
         }
+    }
+
+    public static Monster findWeakest(){
+        // grab the first non- null monster as our weakest
+        Monster weakest = null;
+
+        for(Monster m : monsters) if (m != null) weakest = m;
+        // look for a weaker monster
+        for(Monster m: monsters){
+            if(m!= null && m.health() < weakest.health()){
+                weakest = m; 
+            }
+        }
+
+        return weakest;
     }
 
 }
