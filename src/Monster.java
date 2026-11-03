@@ -17,7 +17,7 @@ public class Monster {
     // MUTATORS
     public void takeDmg(int dmg){
         health -= dmg;
-        System.out.println("Monster takes " + dmg + " damage.");puppy
+        System.out.println("Monster takes " + dmg + " damage.");
         
         // check if dead
 

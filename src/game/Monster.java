@@ -1,4 +1,9 @@
 package game;
+
+import java.util.ArrayList;
+
+import gui.MonsterBattleGUI;
+
 public class Monster {
     // INSTANCE VARIABLES (properties)
     private int health;
@@ -34,7 +39,23 @@ public class Monster {
         health -= dmg;
     }
 
+    public void heal(int heal) { health += heal;}
+
     // UTILITY METHODS
+
+    public void heal(Monster friend, int heal){
+        friend.heal(heal);
+    }
+
+    public void jan6(ArrayList <Monster> monsters, MonsterBattleGUI gui){
+        for (Monster m: monsters){
+            m.twoFast2furious(gui);
+            gui.displayMessage("LET'S GO!!!!!");
+        }
+    }
+
+
+
 
     public void twoFast2furious(MonsterBattleGUI gui){
         // lowers health to 25%, not less than 5

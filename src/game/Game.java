@@ -12,8 +12,8 @@ public class Game {
     private ArrayList<Monster> monsters;
     private ArrayList<Item> inventory;
     private int playerHealth;
-    private int sheild = 0;
-    private int SHEILD_UP = 20; 
+    private int shield = 0;
+    private int SHIELD_UP = 20; 
     private int maxHealth;
     
     public static void main(String[] args) {
@@ -107,23 +107,22 @@ public class Game {
         }
     }
     
-    // TODO: What does defending change? Less damage next turn? A blocked hit?
+  
     private void defend() {
-        gui.displayMessage("TODO: Implement defend!");
-        sheild += SHEILD_UP;
-        gui.displayMessage("SHEILD UP Current sheil: " + sheild);
+        gui.displayMessage("Implement defend!");
+        shield += SHIELD_UP;
+        gui.displayMessage("SHIELD UP Current shield: " + shield);
     }
     
     private void heal() {
-        gui.displayMessage("TODO: Implement heal!");
-        int healNumber = (int)(Math.random() * (40 - 0 + 1)) + 0;
+        int healNumber = (int)(Math.random() * (40 + 1)) + 0;
+        playerHealth+= healNumber;
         if(playerHealth > maxHealth){
             maxHealth = playerHealth;
             gui.setPlayerMaxHealth(maxHealth);
         }
-        playerHealth+= healNumber;
-        gui.displayMessage("You healed for");
-        gui.setPlayerMaxHealth(playerHealth);
+        gui.displayMessage("You healed for " + healNumber);
+        gui.updatePlayerHealth(playerHealth);
     }
     
     // Uses the first item in the inventory.
@@ -139,7 +138,7 @@ public class Game {
         item.use();  // The item knows what to do!
     }
     
-    // TODO: Which monster attacks, and for how much? A special move goes here.
+    
     private void monsterAttack() {
         gui.displayMessage("TODO: Implement monster attack!");
     }
