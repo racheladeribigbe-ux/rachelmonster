@@ -32,6 +32,8 @@ public class Game {
         // Create the GUI
         gui = new MonsterBattleGUI("Rachel's Monster Battle");
         
+// TODO difficulty selection
+
         maxHealth = 100;  // Change this if you want
         playerHealth = 75;
         gui.setPlayerMaxHealth(maxHealth);
@@ -111,6 +113,7 @@ public class Game {
     private void defend() {
         gui.displayMessage("Implement defend!");
         shield += SHIELD_UP;
+        // EXTRA CREDIT add shield to the gui
         gui.displayMessage("SHIELD UP Current shield: " + shield);
     }
     
@@ -140,7 +143,11 @@ public class Game {
     
     
     private void monsterAttack() {
-        gui.displayMessage("TODO: Implement monster attack!");
+        Monster monster = getRandomLivingMonster(); // TODO be smarter 
+        playerHealth-= monster.damage();
+        gui.displayMessage("Monster hits for " + monster.damage());
+        gui.updatePlayerHealth(playerHealth);
+
     }
     
     // Helpers. Add your own below these two.
