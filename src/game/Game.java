@@ -21,18 +21,25 @@ public class Game {
         Game game = new Game();
         game.play();
     }
+
     
     public void play() {
         setupGame();
         gameLoop();
     }
-    
-    // TODO: How much health, how many monsters, which items? Your choice.
+
+// ACCESSORS
+    public MonsterBattleGUI getGUI() {return gui;}
+    public ArrayList<Monster> getMonsters() {return monsters;}
+
+
+
+
+   
     private void setupGame() {
         // Create the GUI
         gui = new MonsterBattleGUI("Rachel's Monster Battle");
         
-// TODO difficulty selection
 
         maxHealth = 100;  // Change this if you want
         playerHealth = 75;
@@ -40,7 +47,9 @@ public class Game {
         gui.updatePlayerHealth(playerHealth);
         
         monsters = new ArrayList<>();
-        monsters.add(new Monster());  // Add more monsters here!
+        monsters.add(new Monster(this)); 
+        monsters.add(new Monster(this, "pfundstein"));
+        monsters.add(new Monster(this, "human"));   
         gui.updateMonsters(monsters);
         
         // TODO: Create starting items (GameDemo's addBomb() shows the shape)
@@ -102,10 +111,14 @@ public class Game {
     
     // TODO: How much damage, and to which monster?
     private void attackMonster() {
-        gui.displayMessage("John Wick");
-        for(Monster m: monsters){
-            //kill each one
-            m.takeDamage(m.health());
+        Monster target = getRandomLivingMonster();
+
+        // determine damage
+        int damage = (int)(Math.random()*15 +16);
+        // apply damage
+        target.takeDamage(damage);
+        //show message
+        
         }
     }
     
