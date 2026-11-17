@@ -12,8 +12,8 @@ public class Game {
     private ArrayList<Monster> monsters;
     private ArrayList<Item> inventory;
     private int playerHealth;
-    private int shield = 0;
-    private int SHIELD_UP = 20; 
+    private int shield = 30;
+    private int SHIELD_UP = shield + 20; 
     private int maxHealth;
     
     public static void main(String[] args) {
@@ -120,7 +120,7 @@ public class Game {
         //show message
         
         }
-    }
+    
     
   
     private void defend() {
@@ -132,11 +132,11 @@ public class Game {
     
     private void heal() {
         int healNumber = (int)(Math.random() * (40 + 1)) + 0;
-        playerHealth+= healNumber;
+        playerHealth += healNumber;
         if(playerHealth > maxHealth){
             maxHealth = playerHealth;
             gui.setPlayerMaxHealth(maxHealth);
-        }
+        } 
         gui.displayMessage("You healed for " + healNumber);
         gui.updatePlayerHealth(playerHealth);
     }
@@ -156,8 +156,21 @@ public class Game {
     
     
     private void monsterAttack() {
-        Monster monster = getRandomLivingMonster(); // TODO be smarter 
-        playerHealth-= monster.damage();
+        Monster monster = getRandomLivingMonster(); 
+        double incomingDamage = monster.damage();
+        if(shield > 0 ){
+            // reduce the incoming damage by shield
+            if (shield > incomingDamage){
+                 incomingDamage-= shield;
+                 gui.displayMessage("block by monster damage");
+            }
+            else{
+                incomingDamage-= shield;
+
+            }
+            gui.displayMessage("block by monster damage");
+        }
+        playerHealth-= playerHealth + (incomingDamage -= shield);
         gui.displayMessage("Monster hits for " + monster.damage());
         gui.updatePlayerHealth(playerHealth);
 

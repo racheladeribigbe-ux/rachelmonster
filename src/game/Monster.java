@@ -28,8 +28,8 @@ public class Monster {
         if (special.equals("pfundstein")) {
             game.getGUI().displayMessage("Keep leading to your doom!");
         }
-        if (special.equals("human")) {
-            game.getGUI().displayMessage("I'm not a monster!");
+        if (special.equals("big monster")) {
+            game.getGUI().displayMessage("I'm a big monster!");
         }
     }
 
@@ -42,8 +42,8 @@ public class Monster {
         if (special.equals("pfundstein")) {
             game.getGUI().displayMessage("Where's your YONDER");
         }
-        if (special.equals("human")) {
-            game.getGUI().displayMessage("I'm not a monster!");
+        if (special.equals("big monster")) {
+            game.getGUI().displayMessage("I'm a big monster!");
         }
         return Math.round(damage * 100.0) / 100.0;
     }
