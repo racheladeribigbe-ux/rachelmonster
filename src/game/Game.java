@@ -46,6 +46,7 @@ public class Game {
         gui.setPlayerMaxHealth(maxHealth);
         gui.updatePlayerHealth(playerHealth);
         
+        inventory = new ArrayList<>();
         monsters = new ArrayList<>();
         monsters.add(new Monster(this)); 
         monsters.add(new Monster(this, "pfundstein"));
@@ -141,6 +142,34 @@ public class Game {
         gui.updatePlayerHealth(playerHealth);
     }
     
+// ==================== ITEM CREATION HELPERS ====================
+    
+    /**
+     * Add a health potion to inventory
+     */
+    private void addHealthPotion(int healAmount) {
+        inventory.add(new Item("Health Potion", "🧪", () -> {
+            playerHealth = Math.min(maxHealth, playerHealth + healAmount);
+            gui.updatePlayerHealth(playerHealth);
+            gui.displayMessage("💚 Used Health Potion! Healed " + healAmount + " HP!");
+        }));
+    }
+    
+    /**
+     * Add a bomb to inventory (damages all monsters)
+     */
+    private void addBomb(int damage) {
+        inventory.add(new Item("Bomb", "💣", () -> {
+            for (Monster m : monsters) {
+                if (m.health() > 0) {
+                    m.takeDamage(damage);
+                }
+            }
+            gui.displayMessage("💣 BOOM! All monsters take " + damage + " damage!");
+            gui.updateMonsters(monsters);
+        }));
+    }
+
     // Uses the first item in the inventory.
     private void useItem() {
         if (inventory.isEmpty()) {

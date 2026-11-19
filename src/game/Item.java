@@ -40,6 +40,8 @@ package game;
         return name;
     }
     
+
+    
     /**
      * Get the item's display icon
      * @return The icon
